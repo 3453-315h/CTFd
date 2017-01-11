@@ -32,6 +32,7 @@ function loadchal(id, update) {
     $('.chal-name').val(obj.name);
     $('.chal-desc').val(obj.description);
     $('.chal-value').val(obj.value);
+    $('.chal-row-order').val(obj.row_order);
     $('.chal-category').val(obj.category);
     $('.chal-id').val(obj.id);
     $('.chal-hidden').prop('checked', false);

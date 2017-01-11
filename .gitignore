@@ -62,3 +62,4 @@ CTFd/static/uploads
 CTFd/uploads
 CTFd/plugins
 .ctfd_secret_key
+CTFd/config.py*

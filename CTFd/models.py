@@ -63,13 +63,15 @@ class Challenges(db.Model):
     category = db.Column(db.String(80))
     flags = db.Column(db.Text)
     hidden = db.Column(db.Boolean)
+    row_order = db.Column(db.Integer)
 
-    def __init__(self, name, description, value, category, flags):
+    def __init__(self, name, description, value, category, flags, row_order):
         self.name = name
         self.description = description
         self.value = value
         self.category = category
         self.flags = json.dumps(flags)
+        self.row_order = row_order
 
     def __repr__(self):
         return '<chal %r>' % self.name

@@ -288,7 +288,7 @@ def new_container():
 @admins_only
 def admin_chals():
     if request.method == 'POST':
-        chals = Challenges.query.add_columns('id', 'name', 'value', 'description', 'category', 'hidden').order_by(Challenges.value).all()
+        chals = Challenges.query.add_columns('id', 'name', 'value', 'description', 'category', 'hidden','row_order').order_by(Challenges.row_order).all()
 
         teams_with_points = db.session.query(Solves.teamid).join(Teams).filter(
             Teams.banned == False).group_by(
@@ -308,6 +308,7 @@ def admin_chals():
                 'description': x.description,
                 'category': x.category,
                 'hidden': x.hidden,
+                'row_order': x.row_order,
                 'percentage_solved': percentage
             })
 
@@ -807,7 +808,7 @@ def admin_create_chal():
     flags = [{'flag':request.form['key'], 'type':int(request.form['key_type[0]'])}]
 
     # Create challenge
-    chal = Challenges(request.form['name'], request.form['desc'], request.form['value'], request.form['category'], flags)
+    chal = Challenges(request.form['name'], request.form['desc'], request.form['value'], request.form['category'], flags, request.form['row_order'])
     if 'hidden' in request.form:
         chal.hidden = True
     else:
@@ -863,6 +864,7 @@ def admin_update_chal():
     challenge.description = request.form['desc']
     challenge.value = request.form['value']
     challenge.category = request.form['category']
+    challenge.row_order = request.form['row_order']
     challenge.hidden = 'hidden' in request.form
     db.session.add(challenge)
     db.session.commit()
